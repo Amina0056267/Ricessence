@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hair-care-app": {
+    "Ricessence": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/hair-care-app",
+            "outputPath": "dist/Ricessence",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "hair-care-app:build:production"
+              "buildTarget": "Ricessence:build:production"
             },
             "development": {
-              "buildTarget": "hair-care-app:build:development"
+              "buildTarget": "Ricessence:build:development"
             }
           },
           "defaultConfiguration": "development"
