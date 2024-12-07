@@ -1,0 +1,51 @@
+.homepage {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Use min-height instead of height */
+    background-color: #082129; /* Black background for the homepage */
+    position: relative; /* Prevent layout shift */
+}
+
+  /* Carousel Styling */
+  #carouselExample {
+    width: 80%; /* Adjust width to suit your design */
+    max-width: 800px; /* Set a maximum width for larger screens */
+    max-height: 911px;
+    margin: 0 auto; /* Center horizontally */
+  }
+  
+
+  .carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 20%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carousel-control-prev {
+    left: 18%; /* Place the "previous" button on the left side */
+}
+
+.carousel-control-next {
+    right: 18%; /* Place the "next" button on the right side */
+}
+
+/* Visually hide text but keep it for accessibility */
+.visually-hidden {
+    font-size: large;
+}
+
+  /* Optional: Styling for Carousel Images */
+  .carousel-item img {
+    object-fit: cover; /* Ensures images fill the container without distortion */
+    height: 400px; /* Adjust the height as needed */
+  }
+  
+
+  
