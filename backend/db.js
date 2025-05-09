@@ -32,6 +32,17 @@ db.serialize(() => {
       createdAt TEXT
     )
   `);
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      productId INTEGER,
+      username TEXT,
+      rating INTEGER,
+      comment TEXT,
+      createdAt TEXT
+    )
+  `);
 });
 
 // -------------------
@@ -102,7 +113,6 @@ exports.createOrder = (req, res) => {
   const { name, email, address, items, total } = req.body;
   const createdAt = new Date().toISOString();
 
-  // 🔍 Debug log: shows incoming order
   console.log('📥 Received order:', req.body);
 
   db.run(
@@ -116,6 +126,35 @@ exports.createOrder = (req, res) => {
       }
 
       console.log('✅ Order saved to DB with ID:', this.lastID);
+      res.json({ id: this.lastID, ...req.body });
+    }
+  );
+};
+
+// -------------------
+// Review Handlers
+// -------------------
+
+exports.getReviewsByProductId = (req, res) => {
+  const { productId } = req.params;
+  db.all(
+    'SELECT * FROM reviews WHERE productId = ? ORDER BY createdAt DESC',
+    [productId],
+    (err, rows) => {
+      if (err) return res.status(500).json(err);
+      res.json(rows);
+    }
+  );
+};
+
+exports.addReview = (req, res) => {
+  const { productId, username, rating, comment, createdAt } = req.body;
+  db.run(
+    `INSERT INTO reviews (productId, username, rating, comment, createdAt)
+     VALUES (?, ?, ?, ?, ?)`,
+    [productId, username, rating, comment, createdAt],
+    function (err) {
+      if (err) return res.status(500).json(err);
       res.json({ id: this.lastID, ...req.body });
     }
   );

@@ -1,38 +1,85 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // ✅ Import this
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductService, Product } from '../services/product.service';
+import { CartService } from '../services/cart.service';
 
+interface Review {
+  username: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <section *ngIf="product" class="product-detail">
-      <img [src]="product.image" alt="{{ product.name }}" />
-      <div class="details">
-        <h1>{{ product.name }}</h1>
-        <p>{{ product.description }}</p>
-        <strong>£{{ product.price }}</strong>
-      </div>
-    </section>
-    <p *ngIf="!product">Loading...</p>
-  `,
+  imports: [CommonModule, FormsModule, HttpClientModule], // ✅ Add FormsModule here
+  templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | undefined;
+  productId: number = 0;
+  reviews: Review[] = [];
+  newReview: Review = {
+    username: '',
+    rating: 5,
+    comment: '',
+    createdAt: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private router: Router,
+    private productService: ProductService,
+    private cartService: CartService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getProducts().subscribe(products => {
-      this.product = products.find(p => p.id === id);
+    this.productId = id;
+
+    if (!id) {
+      this.router.navigate(['/product']);
+      return;
+    }
+
+    this.productService.getProductById(id).subscribe(product => {
+      this.product = product;
+    });
+
+    this.loadReviews();
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    alert(`${product.name} added to cart!`);
+  }
+
+  loadReviews() {
+    this.http.get<Review[]>(`http://localhost:4000/reviews/${this.productId}`).subscribe(data => {
+      this.reviews = data;
     });
   }
+
+  submitReview() {
+    if (!this.newReview.username || !this.newReview.comment) return;
+  
+    const review = {
+      ...this.newReview,
+      productId: this.productId,
+      createdAt: new Date().toISOString()
+    };
+  
+    this.http.post('http://localhost:4000/reviews', review).subscribe(() => {
+      this.newReview = { username: '', rating: 5, comment: '', createdAt: '' };
+      this.loadReviews();
+      alert('✅ Review submitted!');
+    });
+  }
+  
 }

@@ -12,6 +12,12 @@ export interface Product {
   categoryId: number;
 }
 
+export interface Review {
+  username: string;
+  rating: number;
+  comment: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private apiUrl = 'http://localhost:4000/products';

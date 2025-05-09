@@ -31,4 +31,8 @@ app.post('/orders', (req, res, next) => {
   next(); // pass control to the real handler
 }, db.createOrder);
 
+app.get('/reviews/:productId', db.getReviewsByProductId);
+app.post('/reviews', db.addReview);
+
+
 

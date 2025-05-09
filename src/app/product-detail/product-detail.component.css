@@ -52,3 +52,49 @@ button:hover {
   background-color: #5c611e;
 }
 
+.reviews {
+  margin: 2rem;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 500px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.review-form button {
+  align-self: start;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #707625;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #5c611e;
+}
+
+.reviews ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.reviews li {
+  border-top: 1px solid #eee;
+  padding: 0.75rem 0;
+}
+
