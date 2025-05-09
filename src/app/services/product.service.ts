@@ -15,7 +15,6 @@ export interface Product {
 @Injectable({ providedIn: 'root' })
 export class ProductService {
   private apiUrl = 'http://localhost:4000/products';
-
   private http = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
@@ -25,15 +24,15 @@ export class ProductService {
   addProduct(product: Product) {
     return this.http.post<Product>(this.apiUrl, product);
   }
-  
+
   updateProduct(product: Product) {
     return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
   }
-  
+
   deleteProduct(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-  
+
   getProductById(id: number) {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
@@ -41,7 +40,4 @@ export class ProductService {
   getCategories(): Observable<{ id: number; name: string }[]> {
     return this.http.get<{ id: number; name: string }[]>('http://localhost:4000/categories');
   }
-  
-  
-  
 }
