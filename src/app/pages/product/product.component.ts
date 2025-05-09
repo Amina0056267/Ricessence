@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ProductService, Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './product.component.html',
-  styleUrl: './product.component.css'
+  styleUrls: ['./product.component.css']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit {
+  products: Product[] = [];
 
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
+
+  ngOnInit() {
+    this.productService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    alert(`${product.name} added to cart!`);
+  }
 }

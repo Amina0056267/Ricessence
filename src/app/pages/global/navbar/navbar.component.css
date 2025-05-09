@@ -4,48 +4,65 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #707625; /* Soft turquoise */
+    background-color: #707625;
     color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Brand Styling */
-.icon-style {
+    flex-wrap: wrap;
+  }
+  
+  /* Brand Styling */
+  .icon-style {
     font-size: 2rem;
     font-weight: bold;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 1cap;
-}
-
-/* Navigation Styling */
-nav {
+  }
+  
+  .logo-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    display: inline-block;
+  }
+  
+  .active-link {
+    border-bottom: 2px solid #ffe4b5;
+    color: #ffe4b5;
+  }
+  
+  /* Navigation Styling */
+  nav {
     display: flex;
     gap: 3rem;
-}
-
-.nav-link {
+    transition: max-height 0.3s ease;
+  }
+  
+  .nav-link {
     text-decoration: none;
     color: #ffffff;
     font-size: 1.2rem;
     font-weight: 500;
     transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #ffe4b5; /* Soft pastel yellow */
+  }
+  
+  .nav-link:hover {
+    color: #ffe4b5;
     cursor: pointer;
-}
-
-/* Search Form Styling */
-.search-form {
+  }
+  
+  /* Search Form Styling */
+  .search-form {
     display: flex;
     align-items: center;
     border-radius: 4px;
     overflow: hidden;
-}
-
-.search-input {
+  }
+  
+  .search-input {
     padding: 0.5rem 1rem;
     border: none;
     outline: none;
@@ -53,60 +70,63 @@ nav {
     font-size: 0.9rem;
     color: #333;
     border-radius: 4px 0px 0px;
-}
-
-.search-input::placeholder {
+  }
+  
+  .search-input::placeholder {
     color: #999;
-}
-
-/* Search Button Styling */
-.search-button {
+  }
+  
+  .search-button {
     padding: 0.4rem 0.5rem;
     border-radius: 1px;
-    background-color: #ffffff;
+    background-color: #ffe4b5;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: 1px solid #ddd; /* Adds a border between the input and button */
-    background-color: #ffe4b5; /* Light background on hover */
-}
-
-.search-button i {
+    border-left: 1px solid #ddd;
+  }
+  
+  .search-button i {
     color: #333;
     font-size: 1.2rem;
-}
-
-/* Hover Effect */
-.search-button:hover {
-    background-color: #f7c371; /* A darker shade of yellow */
-}
-
-.search-button:focus {
+  }
+  
+  .search-button:hover {
+    background-color: #f7c371;
+  }
+  
+  .search-button:focus {
     outline: none;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
     }
-
+  
     nav {
-        margin-top: 1rem;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      width: 100%;
     }
-
+  
+    nav.active {
+      max-height: 300px;
+    }
+  
     .search-form {
-        margin-top: 1rem;
-        width: 100%;
+      margin-top: 1rem;
+      width: 100%;
     }
-
+  
     .search-input {
-        width: 100%;
+      width: 100%;
     }
-}
+  }
+  

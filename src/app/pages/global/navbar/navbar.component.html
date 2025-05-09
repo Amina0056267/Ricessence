@@ -1,24 +1,28 @@
 <header>
-    <div class="icon-style">Ricessence</div>
-    <div class="header-content">
-      <nav>
-        <a routerLink="/products" class="nav-link">SHOP</a>
-        <a routerLink="/Category" class="nav-link">CATEGORY</a>
-        <a routerLink="/cart" class="nav-link">CART</a>
-        <a routerLink="/wishlist" class="nav-link">WISHLIST</a>
-        <a routerLink="/checkout" class="nav-link">CHECKOUT</a>
-      </nav>
-    </div>
-    <form class="search-form" action="/search" method="get">
-      <input
-        type="text"
-        placeholder="Search products..."
-        name="query"
-        class="search-input"
-      />
-      <button type="submit" class="search-button">
-        <i class="fa fa-search"></i>
-      </button>
-    </form>
-  </header>
+  <div class="icon-style">
+    <a routerLink="/" class="logo-link">
+      Ricessence
+    </a>
+  </div>
+
+  <nav>
+    <a routerLink="/product" class="nav-link" routerLinkActive="active-link">SHOP</a>
+    <a routerLink="/category" class="nav-link" routerLinkActive="active-link">CATEGORY</a>
+    <a routerLink="/cart" class="nav-link" routerLinkActive="active-link">CART</a>
+    <a routerLink="/wishlist" class="nav-link" routerLinkActive="active-link">WISHLIST</a>
+  </nav>
+
+  <form class="search-form" (submit)="onSearch($event)">
+    <input
+      type="text"
+      placeholder="Search products..."
+      [(ngModel)]="searchTerm"
+      name="query"
+      class="search-input"
+    />
+    <button type="submit" class="search-button">
+      <i class="fa fa-search"></i>
+    </button>
+  </form>
   
+</header>
