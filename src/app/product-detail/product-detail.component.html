@@ -1,0 +1,43 @@
+<section *ngIf="product; else notFound" class="product-detail">
+    <img [src]="'/' + product.image" alt="{{ product.name }}" />
+    <div class="details">
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <strong>£{{ product.price }}</strong>
+  
+      <div class="actions">
+        <button (click)="addToCart(product)">Add to Cart</button>
+<button (click)="addToWishlist()">♡ Add to Wishlist</button>
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- ⭐⭐ REVIEWS ⭐⭐ -->
+  <section *ngIf="product" class="reviews">
+    <h2>Reviews</h2>
+  
+    <div *ngIf="reviews.length > 0; else noReviews">
+      <div *ngFor="let r of reviews" class="review">
+        <strong>{{ r.username }}</strong>
+        <span>⭐ {{ r.rating }}/5</span>
+        <p>{{ r.comment }}</p>
+        <small>{{ r.createdAt | date:'medium' }}</small>
+      </div>
+    </div>
+    <ng-template #noReviews><p>No reviews yet.</p></ng-template>
+  
+    <form (ngSubmit)="submitReview()" class="review-form" #f="ngForm">
+        <input [(ngModel)]="newReview.username" name="username" placeholder="Your name" required />
+        <select [(ngModel)]="newReview.rating" name="rating">
+          <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }} Star</option>
+        </select>
+        <textarea [(ngModel)]="newReview.comment" name="comment" placeholder="Your review" required></textarea>
+        <button type="submit">Submit Review</button>
+      </form>      
+  </section>
+  
+  <ng-template #notFound>
+    <p class="error">Product not found.</p>
+  </ng-template>
+  

@@ -1,0 +1,66 @@
+.homepage {
+  background-color: #fffdf9;
+  padding: 4rem 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.hero {
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+  padding: 2rem;
+  background-color: #e6eede;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Carousel Styling */
+#carouselExample {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 400px;
+  width: 100%;
+  display: block;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+  top: 45%;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+
+.carousel-control-prev {
+  left: 1rem;
+}
+
+.carousel-control-next {
+  right: 1rem;
+}
+
+.visually-hidden {
+  font-size: 0;
+}
