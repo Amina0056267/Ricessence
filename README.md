@@ -25,3 +25,38 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+Remember 
+
+asalah@ALT-0184 MINGW64 ~/Repository/Ricessence/backend (3-create-a-pages-module)
+$ /c/Users/asalah/sqlite-tools/sqlite3.exe data.sqlite
+SQLite version 3.49.2 2025-05-07 10:39:52
+Enter ".help" for usage hints.
+
+(this will spin up sqlite prompt)
+
+sqlite> DELETE FROM products;
+sqlite> .quit
+
+asalah@ALT-0184 MINGW64 ~/Repository/Ricessence/backend (3-create-a-pages-module)
+$ /c/Users/asalah/sqlite-tools/sqlite3.exe data.sqlite < seed.sql
+
+asalah@ALT-0184 MINGW64 ~/Repository/Ricessence/backend (3-create-a-pages-module)
+$
+
+
+
+
+To start the app fully:
+
+node index.js - to spin up backend  (need to be in git bash)
+Ng serve - to spin up front end 
+
+Next steps:
+Types file 
+Strongly type 
+Ngrx instead of using services 
+
+
+Heads up: currently http://localhost:4200/ will not take you to the homepage, you need to add http://localhost:4200/products etc --> NEEDS FIXING AND POINT TO HOMEPAGE
