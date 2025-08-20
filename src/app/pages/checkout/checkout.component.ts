@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../../services/cart.service';
@@ -10,27 +10,8 @@ import { Product } from '../../services/product.service';
   selector: 'app-checkout',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  template: `
-    <section class="checkout-form">
-      <h2>Checkout</h2>
-
-      <form (ngSubmit)="placeOrder()">
-        <input [(ngModel)]="name" name="name" placeholder="Full Name" required />
-        <input [(ngModel)]="email" name="email" type="email" placeholder="Email" required />
-        <textarea [(ngModel)]="address" name="address" placeholder="Shipping Address" required></textarea>
-
-        <h3>Order Summary</h3>
-        <ul>
-          <li *ngFor="let item of cart">
-            {{ item.name }} - £{{ item.price }}
-          </li>
-        </ul>
-        <p><strong>Total: £{{ total }}</strong></p>
-
-        <button type="submit">Place Order</button>
-      </form>
-    </section>
-  `
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
   name = '';
@@ -42,13 +23,22 @@ export class CheckoutComponent {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private http: HttpClient // ✅ Needed for the POST
+    private http: HttpClient
   ) {
     this.cart = cartService.getCart();
     this.total = this.cart.reduce((sum, item) => sum + item.price, 0);
   }
 
-  placeOrder() {
+  isCartEmpty(): boolean {
+    return this.cart.length === 0;
+  }
+
+  placeOrder(form: NgForm) {
+    if (form.invalid || this.isCartEmpty()) {
+      alert('Please fill out all fields and ensure your cart is not empty.');
+      return;
+    }
+
     const order = {
       name: this.name,
       email: this.email,
@@ -57,11 +47,9 @@ export class CheckoutComponent {
       total: this.total
     };
 
-    console.log('📤 Sending order:', order); // ✅ Log to confirm
-
     this.http.post('http://localhost:4000/orders', order).subscribe({
       next: () => {
-        alert('Order placed successfully!');
+        alert('✅ Order placed successfully!');
         this.cartService.clearCart();
         this.router.navigate(['/']);
       },

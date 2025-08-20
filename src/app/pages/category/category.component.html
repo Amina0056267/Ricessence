@@ -1,1 +1,16 @@
-<p>category works!</p>
+<section class="category-header">
+  <h1 *ngIf="categoryName">Category: {{ categoryName }}</h1>
+</section>
+
+<section class="product-grid">
+  <a 
+    *ngFor="let product of filteredProducts"
+    class="product-card"
+    [routerLink]="['/product', product.id]"
+  >
+    <img [src]="product.image" alt="{{ product.name }}" />
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <span class="price">£{{ product.price }}</span>
+  </a>
+</section>

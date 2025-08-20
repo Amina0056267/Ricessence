@@ -17,6 +17,7 @@ import { ProductService, Product } from '../services/product.service';
           <strong>{{ product.name }}</strong>
           <button (click)="edit(product.id)">Edit</button>
           <button (click)="delete(product.id)">Delete</button>
+          <button routerLink="/admin/orders">📦 View Orders</button>
         </li>
       </ul>
 

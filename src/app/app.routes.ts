@@ -9,6 +9,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 import { CartComponent } from './pages/cart/cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { AdminOrdersComponent } from './admin/admin-orders.component';
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'admin', component: AdminDashboardComponent },
   { path: 'admin/new', component: AdminFormComponent },
   { path: 'admin/edit/:id', component: AdminFormComponent },
+  { path: 'admin/orders', component: AdminOrdersComponent },
   { path: 'test', component: HomepageComponent },
   { path: 'checkout', component: CheckoutComponent }
 ];

@@ -21,7 +21,6 @@ INSERT INTO categories (name) VALUES
   ('Scalp & Cleansers');
 
 -- Insert products (local image paths under src/assets/images/)
--- Insert products (local image paths under src/assets/images/)
 INSERT INTO products (name, description, price, image, categoryId) VALUES
   ('Hydrating Rice Mask', 'A deeply nourishing hair mask made with fermented rice water.', 14.99, '/assets/images/rice-hair-mask.jpeg', 1),
   ('Lightweight Rice Oil', 'A non-greasy, shine-enhancing hair oil packed with nutrients.', 12.50, '/assets/images/rice-oil.jpeg', 2),

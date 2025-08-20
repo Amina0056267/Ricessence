@@ -17,7 +17,10 @@ app.put('/products/:id', db.updateProduct);
 app.delete('/products/:id', db.deleteProduct);
 
 // Category routes
-app.get('/categories', db.getAllCategories);
+app.get('/categories', async (req, res) => {
+  const categories = await db.all('SELECT * FROM categories');
+  res.json(categories);
+});
 
 // Order route
 app.post('/orders', db.createOrder);
@@ -27,8 +30,8 @@ app.listen(PORT, () => {
 });
 
 app.post('/orders', (req, res, next) => {
-  console.log('🛬 /orders route hit'); // ✅ NEW DEBUG LINE
-  next(); // pass control to the real handler
+  console.log('🛬 /orders route hit');
+  next(); 
 }, db.createOrder);
 
 app.get('/reviews/:productId', db.getReviewsByProductId);

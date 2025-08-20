@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'; // ✅ Import this
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductService, Product } from '../services/product.service';
 import { CartService } from '../services/cart.service';
+import { WishlistService } from '../services/wishlist.service'; // ✅ Import it
 
 interface Review {
   username: string;
@@ -36,7 +37,8 @@ export class ProductDetailComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private cartService: CartService,
-    private http: HttpClient
+    private http: HttpClient,
+    private wishlistService: WishlistService // ✅ ADD THIS
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,13 @@ export class ProductDetailComponent implements OnInit {
     this.cartService.addToCart(product);
     alert(`${product.name} added to cart!`);
   }
+
+  addToWishlist() {
+  if (this.product) {
+    this.wishlistService.addToWishlist(this.product);
+    alert(`${this.product.name} added to wishlist!`);
+  }
+}
 
   loadReviews() {
     this.http.get<Review[]>(`http://localhost:4000/reviews/${this.productId}`).subscribe(data => {

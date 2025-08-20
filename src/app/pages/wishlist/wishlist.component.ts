@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../services/wishlist.service';
 import { Product } from '../../services/product.service';
@@ -7,6 +7,7 @@ import { Product } from '../../services/product.service';
   selector: 'app-wishlist',
   standalone: true,
   imports: [CommonModule],
+  providers: [WishlistService],
   template: `
     <section class="wishlist">
       <h2>Your Wishlist</h2>
@@ -25,19 +26,22 @@ import { Product } from '../../services/product.service';
       </ng-template>
     </section>
   `,
-  styleUrls: ['./wishlist.component.css']
+styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
   wishlist: Product[] = [];
-
-  constructor(private wishlistService: WishlistService) {}
+  private wishlistService: WishlistService = inject(WishlistService);
 
   ngOnInit() {
-    this.wishlist = this.wishlistService.getWishlist();
+    this.loadWishlist();
   }
 
   remove(id: number) {
     this.wishlistService.removeFromWishlist(id);
+    this.loadWishlist();
+  }
+
+  private loadWishlist() {
     this.wishlist = this.wishlistService.getWishlist();
   }
 }
