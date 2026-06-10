@@ -14,11 +14,38 @@
       Enter a valid email
     </div>
 
-    <label>Address *</label>
-    <textarea name="address" [(ngModel)]="address" required></textarea>
-    <div *ngIf="f.submitted && f.controls['address']?.invalid" class="error">
-      Address is required
+    <label>Phone *</label>
+    <input name="phone" [(ngModel)]="phone" required />
+    <div *ngIf="f.submitted && f.controls['phone']?.invalid" class="error">
+      Phone is required
     </div>
+
+    <label>Address Line 1 *</label>
+    <input name="addressLine1" [(ngModel)]="addressLine1" required />
+    <div *ngIf="f.submitted && f.controls['addressLine1']?.invalid" class="error">
+      Address Line 1 is required
+    </div>
+
+    <label>Address Line 2 (Optional)</label>
+    <input name="addressLine2" [(ngModel)]="addressLine2" />
+
+    <label>Town / City *</label>
+    <input name="townOrCity" [(ngModel)]="townOrCity" required />
+    <div *ngIf="f.submitted && f.controls['townOrCity']?.invalid" class="error">
+      Town/City is required
+    </div>
+
+    <label>County (Optional)</label>
+    <input name="county" [(ngModel)]="county" />
+
+    <label>Postcode *</label>
+    <input name="postcode" [(ngModel)]="postcode" required />
+    <div *ngIf="f.submitted && f.controls['postcode']?.invalid" class="error">
+      Postcode is required
+    </div>
+
+    <label>Country</label>
+    <input name="country" [(ngModel)]="country" readonly disabled />
 
     <h3>Order Summary</h3>
     <ul>
@@ -26,7 +53,7 @@
     </ul>
 
     <p>
-      <strong>Total: £{{ total }}</strong>
+      Total: £{{ total.toFixed(2) }}
     </p>
     <button type="submit" [disabled]="isCartEmpty()">Place Order</button>
     <p *ngIf="isCartEmpty()" class="error">

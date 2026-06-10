@@ -16,8 +16,18 @@ import { API_BASE_URL } from '../config';
           <h3>🧾 Order #{{ order.id }}</h3>
           <p><strong>Name:</strong> {{ order.name }}</p>
           <p><strong>Email:</strong> {{ order.email }}</p>
-          <p><strong>Address:</strong> {{ order.address }}</p>
-          <p><strong>Total:</strong> £{{ order.total }}</p>
+          <p *ngIf="order.phone"><strong>Phone:</strong> {{ order.phone }}</p>
+          <p>
+            <strong>Address:</strong>
+            <span *ngIf="order.addressLine1; else fallbackAddress">
+              {{ order.addressLine1 }}<span *ngIf="order.addressLine2">, {{ order.addressLine2 }}</span>, 
+              {{ order.townOrCity }}<span *ngIf="order.county">, {{ order.county }}</span>, 
+              {{ order.postcode }}, {{ order.country || 'United Kingdom' }}
+            </span>
+            <ng-template #fallbackAddress>{{ order.address }}</ng-template>
+          </p>
+          <p><strong>Status:</strong> {{ order.status || 'pending' }}</p>
+          <p><strong>Total:</strong> £{{ order.total.toFixed(2) }}</p>
           <p><strong>Date:</strong> {{ order.createdAt | date:'medium' }}</p>
           <h4>Items:</h4>
           <ul>
@@ -49,10 +59,16 @@ import { API_BASE_URL } from '../config';
 export class AdminOrdersComponent implements OnInit {
   orders: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<any[]>(`${API_BASE_URL}/orders`).subscribe(data => {
+    const token = localStorage.getItem('ricessence_token');
+
+    this.http.get<any[]>(`${API_BASE_URL}/orders`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).subscribe(data => {
       this.orders = data
         .map(order => ({
           ...order,

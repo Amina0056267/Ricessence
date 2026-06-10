@@ -17,7 +17,13 @@ import { API_BASE_URL } from '../../config';
 export class CheckoutComponent {
   name = '';
   email = '';
-  address = '';
+  phone = '';
+  addressLine1 = '';
+  addressLine2 = '';
+  townOrCity = '';
+  county = '';
+  postcode = '';
+  country = 'United Kingdom';
   cart: Product[] = [];
   total = 0;
 
@@ -43,7 +49,13 @@ export class CheckoutComponent {
     const order = {
       name: this.name,
       email: this.email,
-      address: this.address,
+      phone: this.phone,
+      addressLine1: this.addressLine1,
+      addressLine2: this.addressLine2,
+      townOrCity: this.townOrCity,
+      county: this.county,
+      postcode: this.postcode,
+      country: this.country,
       items: this.cart,
       total: this.total
     };
