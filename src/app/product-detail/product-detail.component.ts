@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductService, Product } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import { WishlistService } from '../services/wishlist.service'; // ✅ Import it
+import { API_BASE_URL } from '../config';
 
 interface Review {
   username: string;
@@ -70,7 +71,7 @@ export class ProductDetailComponent implements OnInit {
 }
 
   loadReviews() {
-    this.http.get<Review[]>(`http://localhost:4000/reviews/${this.productId}`).subscribe(data => {
+    this.http.get<Review[]>(`${API_BASE_URL}/reviews/${this.productId}`).subscribe(data => {
       this.reviews = data;
     });
   }
@@ -84,7 +85,7 @@ export class ProductDetailComponent implements OnInit {
       createdAt: new Date().toISOString()
     };
   
-    this.http.post('http://localhost:4000/reviews', review).subscribe(() => {
+    this.http.post(`${API_BASE_URL}/reviews`, review).subscribe(() => {
       this.newReview = { username: '', rating: 5, comment: '', createdAt: '' };
       this.loadReviews();
       alert('✅ Review submitted!');

@@ -1,45 +1,83 @@
+
 .homepage {
   background-color: #fffdf9;
-  padding: 4rem 2rem;
-  font-family: 'Segoe UI', sans-serif;
+  padding: 6rem 2rem;
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
   text-align: center;
-}
-
-.hero {
-  max-width: 700px;
-  margin: 0 auto 3rem auto;
-  padding: 2rem;
-  background-color: #e6eede;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
   color: #222;
 }
 
-.hero p {
-  font-size: 1.2rem;
+.hero {
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  padding: 3rem 2rem;
+  background-color: #f8f8f4;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+}
+
+.hero:hover {
+  transform: translateY(-5px);
+}
+
+.brand-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2e2e2e;
+}
+
+.tagline {
+  font-size: 1.3rem;
   color: #555;
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  background: linear-gradient(135deg, #6c63ff, #5a52d6);
+  color: #fff;
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: linear-gradient(135deg, #5a52d6, #4a42c6);
+  transform: scale(1.05);
 }
 
 /* Carousel Styling */
 #carouselExample {
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
 }
 
 .carousel-item img {
   object-fit: cover;
-  height: 400px;
+  height: 450px;
   width: 100%;
   display: block;
+}
+
+.carousel-caption {
+  background: rgba(0,0,0,0.4);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+}
+
+.carousel-caption h5 {
+  font-size: 1.4rem;
+  color: #fff;
+  font-weight: 600;
 }
 
 /* Carousel Controls */
@@ -47,20 +85,14 @@
 .carousel-control-next {
   top: 45%;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
+  padding: 0.6rem;
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
+  transition: background 0.3s ease;
 }
 
-.carousel-control-prev {
-  left: 1rem;
-}
-
-.carousel-control-next {
-  right: 1rem;
-}
-
-.visually-hidden {
-  font-size: 0;
+.carousel-control-prev:hover,
+.carousel-control-next:hover.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }

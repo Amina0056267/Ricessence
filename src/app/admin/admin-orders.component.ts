@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { API_BASE_URL } from '../config';
 
 @Component({
   selector: 'app-admin-orders',
@@ -51,7 +52,7 @@ export class AdminOrdersComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:4000/orders').subscribe(data => {
+    this.http.get<any[]>(`${API_BASE_URL}/orders`).subscribe(data => {
       this.orders = data
         .map(order => ({
           ...order,

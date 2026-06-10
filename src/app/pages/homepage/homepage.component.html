@@ -1,8 +1,14 @@
+
 <section class="homepage">
   <div class="hero">
-    <h1>Welcome to Ricessence</h1>
-    <p>Natural hair care inspired by ancient rituals. Nourish, strengthen, glow.</p>
+    <div class="hero-content text-center">
+      <h1 class="brand-title">Ricessence</h1>
+      <p class="tagline">Ancient rituals. Modern hair care.</p>
+      <button class="cta-btn" routerLink="/shop">Shop Now</button>
+    </div>
   </div>
+
+  <p>Hello Ricessence!</p>
 
   <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -11,7 +17,10 @@
         *ngFor="let image of images; let i = index"
         [class.active]="i === 0"
       >
-        <img [src]="image" class="d-block w-100" alt="Carousel Image" />
+        <img [src]="image" class="d-block w-100 carousel-img" alt="Ricessence Product" />
+        <div class="carousel-caption">
+          <h5>Strength. Shine. Ritual.</h5>
+        </div>
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -23,4 +32,3 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-</section>

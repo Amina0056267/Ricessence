@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from '../config';
 
 export interface Product {
   id: number;
@@ -20,7 +21,7 @@ export interface Review {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private apiUrl = 'http://localhost:4000/products';
+  private apiUrl = `${API_BASE_URL}/products`;
   private http = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
@@ -44,6 +45,6 @@ export class ProductService {
   }
 
   getCategories(): Observable<{ id: number; name: string }[]> {
-    return this.http.get<{ id: number; name: string }[]>('http://localhost:4000/categories');
+    return this.http.get<{ id: number; name: string }[]>(`${API_BASE_URL}/categories`);
   }
 }

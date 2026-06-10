@@ -40,3 +40,20 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Ignore all node_modules recursively
+node_modules/
+
+# Ignore local databases
+*.sqlite
+*.sqlite-journal
+*.db
+
+# Ignore executables and database tools
+*.exe
+sqlite-tools/
+
+# Ignore local environment configurations
+.env*
+!.env.example
+

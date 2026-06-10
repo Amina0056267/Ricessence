@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../services/product.service';
+import { API_BASE_URL } from '../../config';
 
 @Component({
   selector: 'app-checkout',
@@ -47,7 +48,7 @@ export class CheckoutComponent {
       total: this.total
     };
 
-    this.http.post('http://localhost:4000/orders', order).subscribe({
+    this.http.post(`${API_BASE_URL}/orders`, order).subscribe({
       next: () => {
         alert('✅ Order placed successfully!');
         this.cartService.clearCart();

@@ -131,6 +131,13 @@ exports.createOrder = (req, res) => {
   );
 };
 
+exports.getOrders = (req, res) => {
+  db.all('SELECT * FROM orders ORDER BY createdAt DESC', [], (err, rows) => {
+    if (err) return res.status(500).json(err);
+    res.json(rows);
+  });
+};
+
 // -------------------
 // Review Handlers
 // -------------------
