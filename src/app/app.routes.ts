@@ -16,7 +16,7 @@ import { LoginComponent } from './pages/login/login.component';
 export const routes: Routes = [
   // ✅ Redirect empty path to 'home'
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-
+  { path: '', redirectTo: 'product', pathMatch: 'full' },
   // ✅ Homepage route
   { path: 'home', component: HomepageComponent },
 
