@@ -14,10 +14,7 @@ import { authGuard } from './guards/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-  // ✅ Redirect empty path to 'home'
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '', redirectTo: 'product', pathMatch: 'full' },
-  // ✅ Homepage route
+  { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
 
   { path: 'category', component: CategoryComponent },
@@ -33,6 +30,5 @@ export const routes: Routes = [
   { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [authGuard] },
   { path: 'checkout', component: CheckoutComponent },
 
-  // ✅ Wild  // ✅ Wildcard fallback
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
-]
+];

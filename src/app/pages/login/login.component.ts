@@ -31,43 +31,72 @@ import { AuthService } from '../../services/auth.service';
   styles: [`
     .login-container {
       max-width: 400px;
-      margin: 4rem auto;
-      padding: 2rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fafafa;
+      margin: 6rem auto;
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--color-border-thin);
+      border-radius: 4px;
+      background: #FFFFFF;
+      box-shadow: 0 10px 25px rgba(60, 42, 33, 0.03);
+    }
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--color-brand-brown);
     }
     .form-group {
       margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
     label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-brand-brown);
     }
     input {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.75rem 1rem;
       box-sizing: border-box;
-      border: 1px solid #ccc;
+      border: 1px solid var(--color-border-thin);
       border-radius: 4px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus {
+      border-color: var(--color-brand-sand);
     }
     button {
       width: 100%;
-      padding: 0.75rem;
-      background: #333;
-      color: #fff;
+      padding: 0.85rem;
+      background: var(--color-brand-brown);
+      color: #FFF;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background-color 0.2s ease;
     }
     button:hover {
-      background: #555;
+      background: var(--color-brand-orange);
     }
     .error-msg {
-      color: red;
-      margin-top: 1rem;
+      color: var(--color-brand-burgundy);
+      margin-top: 1.25rem;
       text-align: center;
+      font-size: 0.9rem;
+      font-weight: 500;
     }
   `]
 })

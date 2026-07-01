@@ -50,10 +50,7 @@ app.put('/products/:id', authenticateJWT, db.updateProduct);
 app.delete('/products/:id', authenticateJWT, db.deleteProduct);
 
 // Category routes
-app.get('/categories', async (req, res) => {
-  const categories = await db.all('SELECT * FROM categories');
-  res.json(categories);
-});
+app.get('/categories', db.getAllCategories);
 
 // Order routes
 app.get('/orders', authenticateJWT, db.getOrders);

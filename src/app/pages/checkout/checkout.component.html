@@ -1,63 +1,113 @@
-<section class="checkout-form">
-  <h2>Checkout</h2>
+<div class="checkout-container textured-bg">
+  <section class="section-container">
+    <h1 class="checkout-title">Checkout</h1>
+    <p class="checkout-subtitle">Complete your order to begin your beauty ritual</p>
 
-  <form #f="ngForm" (ngSubmit)="placeOrder(f)" novalidate>
-    <label>Name *</label>
-    <input name="name" [(ngModel)]="name" required />
-    <div *ngIf="f.submitted && f.controls['name']?.invalid" class="error">
-      Name is required
+    <div class="checkout-layout">
+      <!-- Checkout Form -->
+      <div class="checkout-form-card">
+        <h3>Shipping Details</h3>
+        <form #f="ngForm" (ngSubmit)="placeOrder(f)" novalidate class="checkout-form">
+          <div class="form-row">
+            <div class="form-group col-12">
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" [(ngModel)]="name" required placeholder="e.g. Halima Farah" class="form-control" />
+              <div *ngIf="f.submitted && f.controls['name']?.invalid" class="error-text">
+                Name is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row split">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input id="email" name="email" [(ngModel)]="email" type="email" required placeholder="e.g. halima@example.com" class="form-control" />
+              <div *ngIf="f.submitted && f.controls['email']?.invalid" class="error-text">
+                Valid email is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input id="phone" name="phone" [(ngModel)]="phone" required placeholder="e.g. +44 7123 456789" class="form-control" />
+              <div *ngIf="f.submitted && f.controls['phone']?.invalid" class="error-text">
+                Phone number is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addressLine1">Address Line 1 *</label>
+            <input id="addressLine1" name="addressLine1" [(ngModel)]="addressLine1" required placeholder="Street address, P.O. box" class="form-control" />
+            <div *ngIf="f.submitted && f.controls['addressLine1']?.invalid" class="error-text">
+              Address is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addressLine2">Address Line 2 (Optional)</label>
+            <input id="addressLine2" name="addressLine2" [(ngModel)]="addressLine2" placeholder="Apartment, suite, unit, building, floor" class="form-control" />
+          </div>
+
+          <div class="form-row split">
+            <div class="form-group">
+              <label for="townOrCity">Town / City *</label>
+              <input id="townOrCity" name="townOrCity" [(ngModel)]="townOrCity" required placeholder="e.g. London" class="form-control" />
+              <div *ngIf="f.submitted && f.controls['townOrCity']?.invalid" class="error-text">
+                Town/City is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="county">County (Optional)</label>
+              <input id="county" name="county" [(ngModel)]="county" placeholder="e.g. Greater London" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-row split">
+            <div class="form-group">
+              <label for="postcode">Postcode *</label>
+              <input id="postcode" name="postcode" [(ngModel)]="postcode" required placeholder="e.g. SW1A 1AA" class="form-control" />
+              <div *ngIf="f.submitted && f.controls['postcode']?.invalid" class="error-text">
+                Postcode is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input id="country" name="country" [(ngModel)]="country" readonly disabled class="form-control disabled" />
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="isCartEmpty()" class="btn-earthy btn-earthy-primary place-order-btn">Place Order</button>
+          <p *ngIf="isCartEmpty()" class="error-text empty-cart-msg">
+            Your cart is empty. Add products before checking out.
+          </p>
+        </form>
+      </div>
+
+      <!-- Checkout Summary Card -->
+      <div class="summary-card">
+        <h3>Your Ritual Order</h3>
+        <div class="checkout-items">
+          <div *ngFor="let item of cart" class="checkout-item">
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-price">£{{ item.price.toFixed(2) }}</span>
+          </div>
+        </div>
+        
+        <div class="summary-totals">
+          <div class="totals-row">
+            <span>Shipping</span>
+            <span class="shipping-free">Complimentary</span>
+          </div>
+          <hr class="summary-divider" />
+          <div class="totals-row total-row">
+            <span>Total</span>
+            <span class="total-price">£{{ total.toFixed(2) }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <label>Email *</label>
-    <input name="email" [(ngModel)]="email" type="email" required />
-    <div *ngIf="f.submitted && f.controls['email']?.invalid" class="error">
-      Enter a valid email
-    </div>
-
-    <label>Phone *</label>
-    <input name="phone" [(ngModel)]="phone" required />
-    <div *ngIf="f.submitted && f.controls['phone']?.invalid" class="error">
-      Phone is required
-    </div>
-
-    <label>Address Line 1 *</label>
-    <input name="addressLine1" [(ngModel)]="addressLine1" required />
-    <div *ngIf="f.submitted && f.controls['addressLine1']?.invalid" class="error">
-      Address Line 1 is required
-    </div>
-
-    <label>Address Line 2 (Optional)</label>
-    <input name="addressLine2" [(ngModel)]="addressLine2" />
-
-    <label>Town / City *</label>
-    <input name="townOrCity" [(ngModel)]="townOrCity" required />
-    <div *ngIf="f.submitted && f.controls['townOrCity']?.invalid" class="error">
-      Town/City is required
-    </div>
-
-    <label>County (Optional)</label>
-    <input name="county" [(ngModel)]="county" />
-
-    <label>Postcode *</label>
-    <input name="postcode" [(ngModel)]="postcode" required />
-    <div *ngIf="f.submitted && f.controls['postcode']?.invalid" class="error">
-      Postcode is required
-    </div>
-
-    <label>Country</label>
-    <input name="country" [(ngModel)]="country" readonly disabled />
-
-    <h3>Order Summary</h3>
-    <ul>
-      <li *ngFor="let item of cart">{{ item.name }} - £{{ item.price }}</li>
-    </ul>
-
-    <p>
-      Total: £{{ total.toFixed(2) }}
-    </p>
-    <button type="submit" [disabled]="isCartEmpty()">Place Order</button>
-    <p *ngIf="isCartEmpty()" class="error">
-      Your cart is empty. Add products before checking out.
-    </p>
-  </form>
-</section>
+  </section>
+</div>

@@ -62,6 +62,9 @@ export class AdminOrdersComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
     const token = localStorage.getItem('ricessence_token');
 
     this.http.get<any[]>(`${API_BASE_URL}/orders`, {
