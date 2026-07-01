@@ -1,43 +1,117 @@
-<section *ngIf="product; else notFound" class="product-detail">
-    <img [src]="'/' + product.image" alt="{{ product.name }}" />
-    <div class="details">
-      <h1>{{ product.name }}</h1>
-      <p>{{ product.description }}</p>
-      <strong>£{{ product.price }}</strong>
-  
-      <div class="actions">
-        <button (click)="addToCart(product)">Add to Cart</button>
-<button (click)="addToWishlist()">♡ Add to Wishlist</button>
+<div class="product-detail-container textured-bg">
+  <div class="section-container" *ngIf="product; else notFound">
+    <!-- Back button -->
+    <a routerLink="/product" class="back-link">← Back to All Formulations</a>
 
+    <div class="detail-grid">
+      <!-- Left Column: Image -->
+      <div class="image-column">
+        <div class="image-wrapper">
+          <img [src]="product.image" alt="{{ product.name }}" class="product-main-image" />
+          <span class="badge-stock">Limited Batch</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Info & Actions -->
+      <div class="info-column">
+        <span class="product-category" *ngIf="product.categoryId === 1">Masks & Conditioners</span>
+        <span class="product-category" *ngIf="product.categoryId === 2">Oils & Serums</span>
+        <span class="product-category" *ngIf="product.categoryId === 3">Scalp & Cleansers</span>
+
+        <h1 class="detail-title">{{ product.name }}</h1>
+        <div class="price-row">
+          <span class="price-value">£{{ product.price.toFixed(2) }}</span>
+        </div>
+
+        <p class="detail-description">{{ product.description }}</p>
+
+        <div class="detail-actions">
+          <button (click)="addToCart(product)" class="btn-earthy btn-earthy-primary">Add to Ritual Cart</button>
+          <button (click)="addToWishlist()" class="btn-earthy btn-earthy-secondary">♡ Add to Wishlist</button>
+        </div>
+
+        <div class="formulation-meta">
+          <h4>Ingredients & Ethics</h4>
+          <p>Hand-crafted in micro-batches. Formulated with fermented rice water, active botanical extracts, and natural essential oils. 100% vegan, cruelty-free, and sulfate-free.</p>
+        </div>
       </div>
     </div>
-  </section>
-  
-  <!-- ⭐⭐ REVIEWS ⭐⭐ -->
-  <section *ngIf="product" class="reviews">
-    <h2>Reviews</h2>
-  
-    <div *ngIf="reviews.length > 0; else noReviews">
-      <div *ngFor="let r of reviews" class="review">
-        <strong>{{ r.username }}</strong>
-        <span>⭐ {{ r.rating }}/5</span>
-        <p>{{ r.comment }}</p>
-        <small>{{ r.createdAt | date:'medium' }}</small>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+      <h2 class="reviews-title">Customer Notes</h2>
+      <p class="reviews-subtitle">Reflections on this hair ritual</p>
+
+      <div class="reviews-layout">
+        <!-- List of Reviews -->
+        <div class="reviews-list">
+          <div *ngIf="reviews.length > 0; else noReviews">
+            <div *ngFor="let r of reviews" class="review-item">
+              <div class="review-header">
+                <span class="review-author">{{ r.username }}</span>
+                <span class="review-stars">
+                  <i class="fa fa-star" *ngFor="let star of [1,2,3,4,5].slice(0, r.rating)"></i>
+                  <i class="far fa-star" *ngFor="let star of [1,2,3,4,5].slice(r.rating)"></i>
+                </span>
+              </div>
+              <p class="review-comment">{{ r.comment }}</p>
+              <span class="review-date">{{ r.createdAt | date:'mediumDate' }}</span>
+            </div>
+          </div>
+          <ng-template #noReviews>
+            <p class="no-reviews-text">No notes have been written for this formulation yet.</p>
+          </ng-template>
+        </div>
+
+        <!-- Add Review Form -->
+        <div class="review-form-container">
+          <h3>Share Your Experience</h3>
+          <form (ngSubmit)="submitReview()" class="review-form" #f="ngForm">
+            <div class="form-group">
+              <label for="username">Your Name</label>
+              <input 
+                [(ngModel)]="newReview.username" 
+                id="username"
+                name="username" 
+                placeholder="e.g. Halima" 
+                required 
+                class="form-control"
+              />
+            </div>
+            
+            <div class="form-group">
+              <label for="rating">Rating</label>
+              <select [(ngModel)]="newReview.rating" id="rating" name="rating" class="form-control select-control">
+                <option *ngFor="let r of [5,4,3,2,1]" [value]="r">{{ r }} Star{{ r > 1 ? 's' : '' }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="comment">Your Note</label>
+              <textarea 
+                [(ngModel)]="newReview.comment" 
+                id="comment"
+                name="comment" 
+                placeholder="How has this ritual transformed your hair?" 
+                required 
+                rows="4"
+                class="form-control"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-earthy btn-earthy-primary" [disabled]="!f.valid">Submit Note</button>
+          </form>
+        </div>
       </div>
-    </div>
-    <ng-template #noReviews><p>No reviews yet.</p></ng-template>
-  
-    <form (ngSubmit)="submitReview()" class="review-form" #f="ngForm">
-        <input [(ngModel)]="newReview.username" name="username" placeholder="Your name" required />
-        <select [(ngModel)]="newReview.rating" name="rating">
-          <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }} Star</option>
-        </select>
-        <textarea [(ngModel)]="newReview.comment" name="comment" placeholder="Your review" required></textarea>
-        <button type="submit">Submit Review</button>
-      </form>      
-  </section>
-  
+    </section>
+  </div>
+
   <ng-template #notFound>
-    <p class="error">Product not found.</p>
+    <div class="section-container error-state">
+      <p>Formulation not found.</p>
+      <a routerLink="/product" class="btn-earthy btn-earthy-secondary">Return to Collection</a>
+    </div>
   </ng-template>
+</div>
+
   

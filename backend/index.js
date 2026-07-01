@@ -17,10 +17,7 @@ app.put('/products/:id', db.updateProduct);
 app.delete('/products/:id', db.deleteProduct);
 
 // Category routes
-app.get('/categories', async (req, res) => {
-  const categories = await db.all('SELECT * FROM categories');
-  res.json(categories);
-});
+app.get('/categories', db.getAllCategories);
 
 // Order route
 app.post('/orders', db.createOrder);

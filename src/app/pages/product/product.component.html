@@ -1,13 +1,90 @@
-<section class="product-list">
-  <div *ngFor="let product of filteredProducts" class="product-card">
-    <img [src]="'/' + product.image" alt="{{ product.name }}" />
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <strong>£{{ product.price }}</strong>
+<div class="shop-container textured-bg">
+  <section class="shop-header">
+    <h1>The Ritual Collection</h1>
+    <p class="shop-subtitle">Natural formulations, rooted in heritage</p>
+  </section>
 
-    <div class="actions">
-      <a [routerLink]="['/product', product.id]">View Details</a>
-      <button (click)="addToCart(product)">Add to Cart</button>
+  <!-- Filter & Sort Toolbar -->
+  <section class="toolbar-section">
+    <div class="search-bar-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="onSearchChange()" 
+        placeholder="Search the collection..." 
+        class="filter-search-input"
+      />
     </div>
-  </div>
-</section>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+      <button 
+        [class.active]="selectedCategoryId === null" 
+        (click)="selectCategory(null)" 
+        class="tab-btn"
+      >
+        All Products
+      </button>
+      <button 
+        *ngFor="let cat of categories" 
+        [class.active]="selectedCategoryId === cat.id" 
+        (click)="selectCategory(cat.id)" 
+        class="tab-btn"
+      >
+        {{ cat.name }}
+      </button>
+    </div>
+
+    <!-- Sort Controls -->
+    <div class="sort-container">
+      <label for="sortBy">Sort by</label>
+      <select id="sortBy" [(ngModel)]="sortBy" (change)="onSortChange()" class="sort-select">
+        <option value="default">Default</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name-asc">Name: A-Z</option>
+      </select>
+    </div>
+  </section>
+
+  <hr class="toolbar-divider" />
+
+  <!-- Product Listing Grid -->
+  <section class="products-section">
+    <div *ngIf="filteredProducts.length > 0; else noProducts" class="product-grid">
+      <div *ngFor="let product of filteredProducts" class="product-card">
+        <div class="product-image-container">
+          <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+          <span class="badge-stock">Limited Batch</span>
+        </div>
+        
+        <div class="product-info">
+          <span class="product-category" *ngIf="product.categoryId === 1">Masks & Conditioners</span>
+          <span class="product-category" *ngIf="product.categoryId === 2">Oils & Serums</span>
+          <span class="product-category" *ngIf="product.categoryId === 3">Scalp & Cleansers</span>
+
+          <h2 class="product-name">
+            <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+          </h2>
+          <p class="product-desc">{{ product.description }}</p>
+          
+          <div class="product-footer">
+            <span class="product-price">£{{ product.price.toFixed(2) }}</span>
+            <div class="product-actions">
+              <a [routerLink]="['/product', product.id]" class="view-detail-link">Details</a>
+              <button (click)="addToCart(product)" class="btn-add-cart">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noProducts>
+      <div class="empty-state">
+        <p>No formulations matched your filters.</p>
+        <button (click)="selectCategory(null); searchQuery=''" class="btn-earthy btn-earthy-secondary">Clear Filters</button>
+      </div>
+    </ng-template>
+  </section>
+</div>
+

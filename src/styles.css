@@ -1,10 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Earthy Harmonious Palette */
+  --color-bg-linen: #FCFAF5;
+  --color-bg-linen-accent: #F5F1E6;
+  --color-text-main: #1F1A17;
+  --color-brand-brown: #3C2A21;
+  --color-brand-orange: #C25438;
+  --color-brand-orange-hover: #9E3E26;
+  --color-brand-sand: #C5A880;
+  --color-brand-olive: #4E5830;
+  --color-brand-burgundy: #5A1827;
+  --color-border-thin: rgba(60, 42, 33, 0.12);
+  --color-border-focus: #C5A880;
+
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--color-bg-linen);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Subtle Linen Texture Overlay Utility */
+.textured-bg {
+  background-color: var(--color-bg-linen);
+  background-image: 
+    radial-gradient(rgba(197, 168, 128, 0.08) 1px, transparent 0),
+    radial-gradient(rgba(197, 168, 128, 0.08) 1px, transparent 0);
+  background-size: 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--color-brand-brown);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+/* Earthy Buttons */
+button, .btn-earthy {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.primary, .btn-earthy-primary {
+  background-color: var(--color-brand-orange);
+  color: #FFFFFF;
+}
+
+button.primary:hover:not(:disabled), .btn-earthy-primary:hover {
+  background-color: var(--color-brand-orange-hover);
+}
+
+button.secondary, .btn-earthy-secondary {
+  background-color: transparent;
+  border-color: var(--color-brand-brown);
+  color: var(--color-brand-brown);
+}
+
+button.secondary:hover:not(:disabled), .btn-earthy-secondary:hover {
+  background-color: var(--color-brand-brown);
+  color: var(--color-bg-linen);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Thin divider lines and layouts */
+hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--color-border-thin);
+  margin: 2rem 0;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
