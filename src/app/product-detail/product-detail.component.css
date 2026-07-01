@@ -1,100 +1,298 @@
-.product-detail {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  align-items: flex-start;
+.product-detail-container {
+  min-height: 100vh;
+  padding: 2rem 0;
 }
 
-.product-detail img {
-  max-width: 400px;
+.back-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-sand);
+  margin-bottom: 2.5rem;
+  display: inline-block;
+}
+
+.back-link:hover {
+  color: var(--color-brand-orange);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  margin-bottom: 5rem;
+  align-items: start;
+}
+
+.image-column {
   width: 100%;
-  border-radius: 12px;
+}
+
+.image-wrapper {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--color-bg-linen-accent);
+  border: 1px solid var(--color-border-thin);
+}
+
+.product-main-image {
+  width: 100%;
+  max-height: 520px;
   object-fit: cover;
+  display: block;
 }
 
-.details {
-  flex: 1;
+.badge-stock {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--color-brand-olive);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
 }
 
-.details h1 {
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-category {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-brand-sand);
+  font-weight: 600;
+}
+
+.detail-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  color: var(--color-brand-brown);
+}
+
+.price-row {
+  border-bottom: 1px solid var(--color-border-thin);
+  padding-bottom: 1rem;
+}
+
+.price-value {
+  font-family: var(--font-serif);
   font-size: 2rem;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--color-brand-brown);
 }
 
-.details p {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  color: #444;
+.detail-description {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-text-main);
+  opacity: 0.85;
 }
 
-.details strong {
-  font-size: 1.5rem;
-  color: #707625;
-}
-.actions {
-  margin-top: 1rem;
+.detail-actions {
   display: flex;
   gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
 }
 
-button {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #707625;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.formulation-meta {
+  background-color: var(--color-bg-linen-accent);
+  border: 1px solid var(--color-border-thin);
+  padding: 1.5rem;
+  border-radius: 4px;
+  margin-top: 1rem;
 }
 
-button:hover {
-  background-color: #5c611e;
+.formulation-meta h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
-.reviews {
-  margin: 2rem;
+.formulation-meta p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.6;
 }
 
-.review-form {
+/* Reviews Layout styling */
+.reviews-section {
+  border-top: 1px solid var(--color-border-thin);
+  padding-top: 4rem;
+}
+
+.reviews-title {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.reviews-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--color-brand-sand);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4rem;
+}
+
+.reviews-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.review-item {
+  border-bottom: 1px solid var(--color-border-thin);
+  padding-bottom: 1.5rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.review-author {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-brand-brown);
+}
+
+.review-stars {
+  color: var(--color-brand-sand);
+  font-size: 0.85rem;
+}
+
+.review-stars i {
+  margin-left: 2px;
+}
+
+.review-comment {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  color: var(--color-brand-brown);
+  opacity: 0.5;
+}
+
+.no-reviews-text {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Review Form Styling */
+.review-form-container {
+  background-color: var(--color-bg-linen-accent);
+  border: 1px solid var(--color-border-thin);
+  padding: 2.5rem;
+  border-radius: 4px;
+  position: sticky;
+  top: 100px;
+}
+
+.review-form-container h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border-thin);
+  padding-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-width: 500px;
 }
 
-.review-form input,
-.review-form textarea,
-.review-form select {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+.form-group label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-brown);
 }
 
-.review-form button {
-  align-self: start;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #707625;
-  border: none;
-  border-radius: 5px;
-  color: white;
+.form-control {
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-thin);
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--color-brand-sand);
+}
+
+.select-control {
   cursor: pointer;
 }
 
-.review-form button:hover {
-  background-color: #5c611e;
+.error-state {
+  text-align: center;
+  padding: 6rem 2rem;
 }
 
-.reviews ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
+.error-state p {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-brand-brown);
+  margin-bottom: 1.5rem;
 }
 
-.reviews li {
-  border-top: 1px solid #eee;
-  padding: 0.75rem 0;
+/* Responsive adjust */
+@media (max-width: 768px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .reviews-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .review-form-container {
+    position: static;
+  }
+
+  .detail-title {
+    font-size: 2.2rem;
+  }
 }
+
 

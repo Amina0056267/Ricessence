@@ -1,16 +1,46 @@
-<section class="category-header">
-  <h1 *ngIf="categoryName">Category: {{ categoryName }}</h1>
-</section>
+<div class="category-container textured-bg">
+  <section class="category-header">
+    <a routerLink="/product" class="back-link">← Back to All Formulations</a>
+    <h1 *ngIf="categoryName">{{ categoryName }}</h1>
+    <p class="category-subtitle">Nourishing hair and scalp rituals</p>
+  </section>
 
-<section class="product-grid">
-  <a 
-    *ngFor="let product of filteredProducts"
-    class="product-card"
-    [routerLink]="['/product', product.id]"
-  >
-    <img [src]="product.image" alt="{{ product.name }}" />
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <span class="price">£{{ product.price }}</span>
-  </a>
-</section>
+  <!-- Product Grid -->
+  <section class="products-section">
+    <div *ngIf="filteredProducts.length > 0; else emptyState" class="product-grid">
+      <div *ngFor="let product of filteredProducts" class="product-card">
+        <div class="product-image-container">
+          <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+          <span class="badge-stock">Limited Batch</span>
+        </div>
+        
+        <div class="product-info">
+          <span class="product-category" *ngIf="product.categoryId === 1">Masks & Conditioners</span>
+          <span class="product-category" *ngIf="product.categoryId === 2">Oils & Serums</span>
+          <span class="product-category" *ngIf="product.categoryId === 3">Scalp & Cleansers</span>
+
+          <h2 class="product-name">
+            <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+          </h2>
+          <p class="product-desc">{{ product.description }}</p>
+          
+          <div class="product-footer">
+            <span class="product-price">£{{ product.price.toFixed(2) }}</span>
+            <div class="product-actions">
+              <a [routerLink]="['/product', product.id]" class="view-detail-link">Details</a>
+              <button (click)="addToCart(product)" class="btn-add-cart">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <p>No products found in this category.</p>
+        <a routerLink="/product" class="btn-earthy btn-earthy-secondary">Explore All Products</a>
+      </div>
+    </ng-template>
+  </section>
+</div>
+

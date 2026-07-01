@@ -29,9 +29,31 @@ db.serialize(() => {
       address TEXT,
       items TEXT,
       total REAL,
-      createdAt TEXT
+      createdAt TEXT,
+      phone TEXT,
+      addressLine1 TEXT,
+      addressLine2 TEXT,
+      townOrCity TEXT,
+      county TEXT,
+      postcode TEXT,
+      country TEXT DEFAULT 'United Kingdom',
+      status TEXT DEFAULT 'pending'
     )
   `);
+
+  const addColumns = [
+    'ALTER TABLE orders ADD COLUMN phone TEXT',
+    'ALTER TABLE orders ADD COLUMN addressLine1 TEXT',
+    'ALTER TABLE orders ADD COLUMN addressLine2 TEXT',
+    'ALTER TABLE orders ADD COLUMN townOrCity TEXT',
+    'ALTER TABLE orders ADD COLUMN county TEXT',
+    'ALTER TABLE orders ADD COLUMN postcode TEXT',
+    'ALTER TABLE orders ADD COLUMN country TEXT DEFAULT "United Kingdom"',
+    'ALTER TABLE orders ADD COLUMN status TEXT DEFAULT "pending"'
+  ];
+  addColumns.forEach(sql => {
+    db.run(sql, () => {});
+  });
 
   db.run(`
     CREATE TABLE IF NOT EXISTS reviews (
@@ -110,15 +132,30 @@ exports.getAllCategories = (req, res) => {
 // -------------------
 
 exports.createOrder = (req, res) => {
-  const { name, email, address, items, total } = req.body;
+  const { name, email, address, items, total, phone, addressLine1, addressLine2, townOrCity, county, postcode, country, status } = req.body;
   const createdAt = new Date().toISOString();
 
   console.log('📥 Received order:', req.body);
 
   db.run(
-    `INSERT INTO orders (name, email, address, items, total, createdAt)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [name, email, address, JSON.stringify(items), total, createdAt],
+    `INSERT INTO orders (name, email, address, items, total, createdAt, phone, addressLine1, addressLine2, townOrCity, county, postcode, country, status)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      name,
+      email,
+      address || `${addressLine1}${addressLine2 ? ', ' + addressLine2 : ''}, ${townOrCity}, ${county ? county + ', ' : ''}${postcode}, ${country || 'United Kingdom'}`,
+      JSON.stringify(items),
+      total,
+      createdAt,
+      phone,
+      addressLine1,
+      addressLine2,
+      townOrCity,
+      county,
+      postcode,
+      country || 'United Kingdom',
+      status || 'pending'
+    ],
     function (err) {
       if (err) {
         console.error('❌ Failed to insert order:', err.message);

@@ -1,26 +1,128 @@
-<section class="homepage">
-  <div class="hero">
-    <h1>Welcome to Ricessence</h1>
-    <p>Natural hair care inspired by ancient rituals. Nourish, strengthen, glow.</p>
-  </div>
 
-  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div
-        class="carousel-item"
-        *ngFor="let image of images; let i = index"
-        [class.active]="i === 0"
-      >
-        <img [src]="image" class="d-block w-100" alt="Carousel Image" />
+<div class="homepage-container textured-bg">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="hero-subtitle">Rooted in heritage, crafted for today</span>
+      <h1 class="hero-title">For the lengths of our hair</h1>
+      <p class="hero-text">
+        Ricessence honors the sacred, time-tested rice water rituals passed down through generations of Somali mothers. 
+        Natural, gentle, and intentional formulations created for radiant hair.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/product" class="btn-earthy btn-earthy-primary">View the collection</a>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-</section>
+  </section>
+
+  <!-- Product Journey / Rituals Section -->
+  <section class="journey-section">
+    <div class="section-header">
+      <h2>The Rice Water Journey</h2>
+      <p class="section-subtitle">Three steps to strength, shine, and sacred care</p>
+    </div>
+    
+    <div class="journey-grid">
+      <div class="journey-step">
+        <span class="step-num">01</span>
+        <h3>Cleanse</h3>
+        <p class="step-desc">
+          Begin at the root. Gentle cleansing removes daily buildup without stripping essential natural oils, 
+          preparing your scalp for deep botanical absorption.
+        </p>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">02</span>
+        <h3>Nourish</h3>
+        <p class="step-desc">
+          Restore structure. Fermented rice proteins penetrate deep into the hair shafts to mend, soften, 
+          and restore dry, brittle strands.
+        </p>
+      </div>
+      <div class="journey-step">
+        <span class="step-num">03</span>
+        <h3>Seal</h3>
+        <p class="step-desc">
+          Lock in hydration. Finish with lightweight oils and nutrient-dense serums to seal the cuticle, 
+          providing long-lasting strength and natural shine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-section">
+    <div class="section-header">
+      <h2>Featured Rituals</h2>
+      <p class="section-subtitle">Our most cherished natural formulations</p>
+    </div>
+
+    <div class="product-grid" *ngIf="featuredProducts.length > 0; else loading">
+      <div class="product-card" *ngFor="let product of featuredProducts">
+        <div class="product-image-container">
+          <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+          <span class="badge-stock">Limited Batch</span>
+        </div>
+        <div class="product-info">
+          <span class="product-category" *ngIf="product.categoryId === 1">Masks & Conditioners</span>
+          <span class="product-category" *ngIf="product.categoryId === 2">Oils & Serums</span>
+          <span class="product-category" *ngIf="product.categoryId === 3">Scalp & Cleansers</span>
+          
+          <h3 class="product-name">
+            <a [routerLink]="['/product', product.id]">{{ product.name }}</a>
+          </h3>
+          <p class="product-desc">{{ product.description }}</p>
+          <div class="product-footer">
+            <span class="product-price">£{{ product.price.toFixed(2) }}</span>
+            <div class="product-actions">
+              <a [routerLink]="['/product', product.id]" class="view-detail-link">Details</a>
+              <button (click)="addToCart(product)" class="btn-add-cart">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <ng-template #loading>
+      <p class="loading-text">Loading the collection...</p>
+    </ng-template>
+  </section>
+
+  <!-- Heritage Section -->
+  <section class="heritage-section">
+    <div class="heritage-image">
+      <!-- Elegantly styled placeholder with typography overlay representing Somali beauty rituals -->
+      <div class="image-placeholder">
+        <span class="placeholder-caption">Fermented Rice Rituals</span>
+      </div>
+    </div>
+    <div class="heritage-content">
+      <span class="heritage-subtitle">Ancient rituals for radiant hair</span>
+      <h2>A Somali Legacy of Care</h2>
+      <p>
+        For centuries, Somali women have gathered under shade trees and inside family homes, sharing recipes and secrets for beauty and longevity. 
+        Among the most treasured is the use of fermented rice water—a vitamin-rich ritual that yields incredible hair elasticity, length, and luster.
+      </p>
+      <p>
+        Ricessence brings this legacy forward. Formulated in honor of the mothers who passed these rituals down, we blend traditional wisdom with modern refinement. 
+        Each product uses pure ingredients designed to make your hair care a moment of quiet reverence.
+      </p>
+      <a routerLink="/product" class="btn-earthy btn-earthy-secondary">View the rituals</a>
+    </div>
+  </section>
+
+  <!-- Community & Warmth Section -->
+  <section class="community-section">
+    <div class="community-box">
+      <h2 class="community-title">The Ricessence Circle</h2>
+      <p class="community-quote">
+        “We design products for the shared spaces in our lives. From a mother dressing her daughter's braids, 
+        to the quiet moments before sleep—our ritual is a celebration of our history, our roots, and our future.”
+      </p>
+      <div class="community-footer">
+        <span>Amina & the Ricessence Family</span>
+      </div>
+    </div>
+  </section>
+</div>
+

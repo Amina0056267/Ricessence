@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { ProductService, Product } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-category',
@@ -15,35 +16,45 @@ import { ProductService, Product } from '../../services/product.service';
 export class CategoryComponent implements OnInit {
   filteredProducts: Product[] = [];
   categoryName: string = '';
+  categoryId: number | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private categoryService: CategoryService,
-    private productService: ProductService
-  ) {}
+  private route = inject(ActivatedRoute);
+  private categoryService = inject(CategoryService);
+  private productService = inject(ProductService);
+  private cartService = inject(CartService);
 
   ngOnInit() {
-    const categoryIdParam = this.route.snapshot.paramMap.get('id');
-
-    this.categoryService.getCategories().subscribe(categories => {
-      if (categoryIdParam) {
-        const categoryId = Number(categoryIdParam);
-        const category = categories.find(c => c.id === categoryId);
-        if (category) {
-          this.categoryName = category.name;
+    this.route.paramMap.subscribe(paramsMap => {
+      const categoryIdParam = paramsMap.get('id');
+      
+      this.categoryService.getCategories().subscribe(categories => {
+        if (categoryIdParam) {
+          const catId = Number(categoryIdParam);
+          this.categoryId = catId;
+          const category = categories.find(c => c.id === catId);
+          if (category) {
+            this.categoryName = category.name;
+          }
+        } else {
+          this.categoryId = null;
+          this.categoryName = 'All Formulations';
         }
-      } else {
-        this.categoryName = 'All';
-      }
-    });
+      });
 
-    this.productService.getProducts().subscribe(products => {
-      if (categoryIdParam) {
-        const categoryId = Number(categoryIdParam);
-        this.filteredProducts = products.filter(p => p.categoryId === categoryId);
-      } else {
-        this.filteredProducts = products;
-      }
+      this.productService.getProducts().subscribe(products => {
+        if (categoryIdParam) {
+          const catId = Number(categoryIdParam);
+          this.filteredProducts = products.filter(p => p.categoryId === catId);
+        } else {
+          this.filteredProducts = products;
+        }
+      });
     });
   }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    alert(`✨ ${product.name} has been added to your ritual cart.`);
+  }
 }
+

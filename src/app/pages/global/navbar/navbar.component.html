@@ -1,21 +1,44 @@
-<header>
-  <div class="icon-style">
-    <a routerLink="/" class="logo-link">
+<header class="navbar-header">
+  <div class="nav-brand">
+    <a routerLink="/" class="logo-link" (click)="closeMobileMenu()">
       Ricessence
     </a>
   </div>
 
-  <nav>
-    <a routerLink="/product" class="nav-link" routerLinkActive="active-link">SHOP</a>
-    <a routerLink="/category" class="nav-link" routerLinkActive="active-link">CATEGORY</a>
-    <a routerLink="/cart" class="nav-link" routerLinkActive="active-link">CART</a>
-    <a routerLink="/wishlist" class="nav-link" routerLinkActive="active-link">WISHLIST</a>
+  <!-- Mobile Toggle Button -->
+  <button class="mobile-toggle" (click)="toggleMobileMenu()" aria-label="Toggle navigation">
+    <i class="fa" [ngClass]="isMobileMenuOpen ? 'fa-times' : 'fa-bars'"></i>
+  </button>
+
+  <nav class="nav-menu" [class.active]="isMobileMenuOpen">
+    <a routerLink="/product" class="nav-link" routerLinkActive="active-link" (click)="closeMobileMenu()">SHOP</a>
+    <a routerLink="/category" class="nav-link" routerLinkActive="active-link" (click)="closeMobileMenu()">CATEGORIES</a>
+    <a routerLink="/wishlist" class="nav-link" routerLinkActive="active-link" (click)="closeMobileMenu()">WISHLIST</a>
+    <a routerLink="/cart" class="nav-link cart-link" routerLinkActive="active-link" (click)="closeMobileMenu()">
+      RITUAL CART 
+      <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </a>
+    
+    <!-- Inline search inside mobile menu as fallback -->
+    <form class="search-form mobile-search" (submit)="onSearch($event)">
+      <input
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="searchTerm"
+        name="query-mobile"
+        class="search-input"
+      />
+      <button type="submit" class="search-button">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
   </nav>
 
-  <form class="search-form" (submit)="onSearch($event)">
+  <!-- Desktop Search Form -->
+  <form class="search-form desktop-search" (submit)="onSearch($event)">
     <input
       type="text"
-      placeholder="Search products..."
+      placeholder="Search rituals..."
       [(ngModel)]="searchTerm"
       name="query"
       class="search-input"
@@ -24,5 +47,5 @@
       <i class="fa fa-search"></i>
     </button>
   </form>
-  
 </header>
+
