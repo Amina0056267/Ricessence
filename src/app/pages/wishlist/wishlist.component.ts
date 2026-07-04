@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../../services/wishlist.service';
 import { Product } from '../../services/product.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -31,14 +32,19 @@ styleUrls: ['./wishlist.component.css']
 export class WishlistComponent implements OnInit {
   wishlist: Product[] = [];
   private wishlistService: WishlistService = inject(WishlistService);
+  private toastService: ToastService = inject(ToastService);
 
   ngOnInit() {
     this.loadWishlist();
   }
 
   remove(id: number) {
+    const item = this.wishlist.find(product => product.id === id);
     this.wishlistService.removeFromWishlist(id);
     this.loadWishlist();
+    if (item) {
+      this.toastService.info(`${item.name} has been removed from your wishlist.`);
+    }
   }
 
   private loadWishlist() {

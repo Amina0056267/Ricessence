@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -105,15 +106,18 @@ export class LoginComponent {
   errorMessage = '';
   private authService = inject(AuthService);
   private router = inject(Router);
+  private toastService = inject(ToastService);
 
   onSubmit() {
     if (!this.password) return;
     this.authService.login(this.password).subscribe({
       next: () => {
+        this.toastService.success('Admin login successful.');
         this.router.navigate(['/admin']);
       },
       error: () => {
-        this.errorMessage = '❌ Invalid password';
+        this.errorMessage = 'Invalid password';
+        this.toastService.error('Invalid password.');
       }
     });
   }

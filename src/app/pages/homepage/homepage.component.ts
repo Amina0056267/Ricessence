@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-homepage',
@@ -16,6 +17,7 @@ export class HomepageComponent implements OnInit {
   featuredProducts: Product[] = [];
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     this.productService.getProducts().subscribe(products => {
@@ -26,6 +28,6 @@ export class HomepageComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    alert(`✨ ${product.name} has been added to your ritual cart.`);
+    this.toastService.success(`${product.name} has been added to your ritual cart.`);
   }
-}
+}
