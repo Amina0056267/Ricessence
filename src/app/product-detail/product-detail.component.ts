@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductService, Product } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 import { WishlistService } from '../services/wishlist.service'; // ✅ Import it
+import { ToastService } from '../services/toast.service';
 
 interface Review {
   username: string;
@@ -38,7 +39,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private http: HttpClient,
-    private wishlistService: WishlistService // ✅ ADD THIS
+    private wishlistService: WishlistService, // ✅ ADD THIS
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -59,13 +61,13 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    alert(`${product.name} added to cart!`);
+    this.toastService.success(`${product.name} has been added to your ritual cart.`);
   }
 
   addToWishlist() {
   if (this.product) {
     this.wishlistService.addToWishlist(this.product);
-    alert(`${this.product.name} added to wishlist!`);
+    this.toastService.success(`${this.product.name} has been added to your wishlist.`);
   }
 }
 
@@ -87,7 +89,7 @@ export class ProductDetailComponent implements OnInit {
     this.http.post('http://localhost:4000/reviews', review).subscribe(() => {
       this.newReview = { username: '', rating: 5, comment: '', createdAt: '' };
       this.loadReviews();
-      alert('✅ Review submitted!');
+      this.toastService.success('Review submitted.');
     });
   }
   

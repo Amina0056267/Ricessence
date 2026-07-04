@@ -4,6 +4,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService, Product } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { ToastService } from '../../services/toast.service';
 
 interface Category {
   id: number;
@@ -29,6 +30,7 @@ export class ProductComponent implements OnInit {
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private route = inject(ActivatedRoute);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     // Fetch categories
@@ -92,7 +94,7 @@ export class ProductComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    alert(`✨ ${product.name} has been added to your ritual cart.`);
+    this.toastService.success(`${product.name} has been added to your ritual cart.`);
   }
 }
 

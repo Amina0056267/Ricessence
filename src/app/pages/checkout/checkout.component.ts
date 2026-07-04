@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../services/product.service';
 import { API_BASE_URL } from '../../config';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +31,8 @@ export class CheckoutComponent {
   constructor(
     private cartService: CartService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastService: ToastService
   ) {
     this.cart = cartService.getCart();
     this.total = this.cart.reduce((sum, item) => sum + item.price, 0);
@@ -42,7 +44,7 @@ export class CheckoutComponent {
 
   placeOrder(form: NgForm) {
     if (form.invalid || this.isCartEmpty()) {
-      alert('Please fill out all fields and ensure your cart is not empty.');
+      this.toastService.error('Please fill out all fields and ensure your cart is not empty.');
       return;
     }
 
@@ -62,12 +64,13 @@ export class CheckoutComponent {
 
     this.http.post(`${API_BASE_URL}/orders`, order).subscribe({
       next: () => {
-        alert('✅ Order placed successfully!');
+        this.toastService.success('Order placed successfully.');
         this.cartService.clearCart();
         this.router.navigate(['/']);
       },
       error: (err) => {
-        console.error('❌ Failed to place order:', err);
+        console.error('Failed to place order:', err);
+        this.toastService.error('Failed to place order. Please try again.');
       }
     });
   }

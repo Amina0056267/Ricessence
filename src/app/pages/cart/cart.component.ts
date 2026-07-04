@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../services/product.service';
 import { Subscription } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
 
 export interface GroupedCartItem {
   product: Product;
@@ -23,6 +24,7 @@ export class CartComponent implements OnInit, OnDestroy {
   total = 0;
   
   private cartService = inject(CartService);
+  private toastService = inject(ToastService);
   private cartSub!: Subscription;
 
   ngOnInit() {
@@ -61,7 +63,11 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   removeFromCart(productId: number) {
+    const item = this.groupedCart.find(cartItem => cartItem.product.id === productId);
     this.cartService.removeFromCart(productId);
+    if (item) {
+      this.toastService.info(`${item.product.name} has been removed from your ritual cart.`);
+    }
   }
 }
 
